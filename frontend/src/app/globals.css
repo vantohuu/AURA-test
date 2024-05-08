@@ -1,7 +1,18 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+/* .ant-input-group-wrapper .ant-input-wrapper .ant-input-affix-wrapper 
+{
+  background-color: blue !important;
+}
+.ant-input-group-wrapper-outlined .ant-input-search
+{
+  background-color: blue !important;
+}
+.ant-input-search
+{
+  background-color: blue !important;
+} */
 :root {
   --foreground-rgb: 0, 0, 0;
   --background-start-rgb: 214, 219, 220;
