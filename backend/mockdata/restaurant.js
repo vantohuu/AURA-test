@@ -8,10 +8,10 @@ for (let i = 0; i < 5; i++) {
     voteNum: chance.integer({ min: 10, max: 30 }),
     name: chance.name({ nationality: 'en' }),
     open_until: chance.integer({ min: 7, max: 12 }),
-    address: chance.address,
+    address: chance.address(),
     average_check: chance.integer({ min: 1000, max: 2000 }),
     description: "European, georgian cuisine",
-    img: "nh" + i
+    img: "/nh" + i +".jpg"
   }
 }
 module.exports = listRestaurant;

@@ -2,28 +2,54 @@
 import { Footer, Header } from "antd/es/layout/layout";
 import Head from "next/head";
 import Image from "next/image";
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Input, Switch } from 'antd';
 import NavComponent from "../../components/NavComponent";
 import RestaurantComponent from "../../components/RestaurantComponent";
 import { FormModal } from "../../components/FormModal";
-
-
-const { Search } = Input;
+import axios from 'axios';
 
 
 
 
 // const [toggleMenu, setToggleMenu] = useState(false)
 
-const onChange = (checked) => {
-  console.log(`switch to ${checked}`);
-};
 
 
 export default function Home() {
   const [toggleMenu, setToggleMenu] = useState(false)
   const [love, setLove] = useState(false);
+  const [mode, setMode] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [dataSource, setDataSource] = useState([{
+    "id": 1,
+    "vote": 1,
+    "voteNum": 17,
+    "name": "Don Banks",
+    "open_until": 9,
+    "address": "1524 Wiolu Way",
+    "average_check": 1330,
+    "description": "European, georgian cuisine",
+    "img": "/nh0.jpg"
+}]);
+
+  useEffect(() => {
+    axios.get(process.env.NEXT_PUBLIC_BE_HOST + '/restaurant/get-all')
+      .then(response => {
+        setDataSource(response.data.data)
+        console.log(response.data.data)
+
+      }
+      )
+      .catch(error => console.log(error));
+  }, []);
+
+  console.log("dataSource", dataSource)
+
+  const onChange = (checked) => {
+    // console.log(`switch to ${checked}`);
+    setMode(!mode)
+  };
 
   const onClickMenu = () => {
     setToggleMenu(!toggleMenu);
@@ -33,6 +59,15 @@ export default function Home() {
     setLove(!love);
   };
 
+  const onBack = () => {
+    if (index > 0) setIndex(index - 1);
+    console.log(index)
+  };
+  const onNext = () => {
+    if (index < dataSource.length - 1) setIndex(index + 1)
+    console.log(index)
+
+  };
   const listStar = (number) => {
     const list = []
     for (let i = 0; i < number; i++) {
@@ -56,22 +91,22 @@ export default function Home() {
         <div className='flex items-center'>
           <Image className='my-3' height={15} width={15} src="/clock.png">
           </Image>
-          <p className="ml-2 text-wrap">Open until 11PM</p>
+          <p className="ml-2 text-wrap">{"Open until " + dataSource[index].open_until + "PM"}</p>
         </div>
         <div className='flex items-center'>
           <Image className='my-3' height={15} width={15} src="/location.png">
           </Image>
-          <p className="ml-2 text-wrap">Open until 11PM</p>
+          <p className="ml-2 text-wrap">{dataSource[index].address}</p>
         </div>
         <div className='flex items-center'>
           <Image className='my-3' height={15} width={15} src="/bill.png">
           </Image>
-          <p className="ml-2 text-wrap">Openasdasdaaaaaaaaaaaaaaaa until 11PM</p>
+          <p className="ml-2 text-wrap">{"Average check: " + dataSource[index].average_check + "$"}</p>
         </div>
         <div className='flex items-center'>
           <Image className='my-3' height={15} width={15} src="/food.png">
           </Image>
-          <p className="ml-2 text-wrap">Open until 11PM</p>
+          <p className="ml-2 text-wrap">{ dataSource[index].description}</p>
         </div>
       </div>
     );
@@ -80,7 +115,7 @@ export default function Home() {
     if (toggleMenu)
       return (
         <>
-          <div className="flex items-center mt-2 lg:hidden w-full bg-slate-700 rounded-s px-3 py-1">
+          <div className={"flex items-center mt-2 lg:hidden w-full rounded-s px-3 py-1 " + (mode ? "bg-slate-600 " : "bg-amber-700")}>
             <a href="#" className="flex-1 text-center	 text-slate-400 mx-3 hover:text-white ">
               Fillter
             </a>
@@ -96,14 +131,14 @@ export default function Home() {
 
   }
   return (
-    <main className="flex flex-col items-center justify-between w-screen lg:h-screen bg-zinc-900  py-3">
+    <main className={"flex flex-col items-center justify-between w-full h-full  py-3 " + (mode ? "bg-zinc-900 " : "bg-red-800")}>
       <header className="w-full text-nowrap" >
         <nav className="flex flex-col items-center lg:p-5 p-3 w-full  font-mono	">
           <div className="flex items-center w-full">
             <p className="font-semibold text-xl text-white lg:ml-3 lg:mr-8 mr-4">EatOut</p>
-            <div className="flex-none  text-teal-200 hover:text-white lg:mx-8">
-              <div className="w-[200px] bg-slate-600 rounded-xl h-[30px] flex p-2">
-                <input placeholder="Find a restaurant" className="bg-slate-600 w-[160px] text-sm outline-none font-sans"></input>
+            <div className={"flex-none  text-teal-200 hover:text-white lg:mx-8"}>
+              <div className={"w-[200px] rounded-xl h-[30px] flex p-2 " + (mode ? "bg-slate-600 " : "bg-amber-700")} >
+                <input placeholder="Find a restaurant" className={"w-[160px] text-sm outline-none font-sans " + (mode ? "bg-slate-600 " : "bg-amber-700")}></input>
                 <button className="flex justify-center items-center">
                   <svg className="w-5 h-5 text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" strokeLinecap="round" strokeWidth="2" d="m21 21-3.5-3.5M17 10a7 7 0 1 1-14 0 7 7 0 0 1 14 0Z" />
@@ -145,8 +180,8 @@ export default function Home() {
             <div className='flex flex-col mt-4 justify-center items-center w-full h-full'>
               <div className='flex items-center w-full lg:px-10 md:px-10' >
                 <div className='flex flex-1 items-center'>
-                  {listStar(4)}
-                  <p className="font-bold text-red-500 ml-2 text-[20px]">23
+                  {listStar(dataSource[index].vote)}
+                  <p className="font-bold text-red-500 ml-2 text-[20px]">{dataSource[index].voteNum}
                   </p>
                 </div>
                 <div className='flex items-center' >
@@ -158,7 +193,7 @@ export default function Home() {
                   </button>
                 </div>
               </div>
-              <p className='px-10 py-12 text-wrap font-bold text-4xl'>Vasdasdasdasd ProVIp</p>
+              <p className='px-10 py-12 text-wrap font-bold text-4xl'>{dataSource[index].name}</p>
               <div className="w-full px-10 text-slate-600">
                 {infoRes()}
               </div>
@@ -166,21 +201,21 @@ export default function Home() {
               {/* <button className='w-[180px] my-5 h-[50px] font-bold rounded-full hover:bg-red-700 bg-red-500 text-white text-center'>
                 BOOK A TABLE
               </button> */}
-              <FormModal></FormModal>
+              <FormModal restaurantId={dataSource[index].id}></FormModal>
             </div>
 
           </div>
           <div className="col-span-1">
-            <Image className="rounded-md w-full" src='/anhdepvietnam.jpg' width={20000} height={20000}></Image>
+            <Image width={100} height={200}  loader={() => process.env.NEXT_PUBLIC_BE_HOST+ dataSource[index].img} className="rounded-md w-full" src={process.env.NEXT_PUBLIC_BE_HOST+ dataSource[index].img} ></Image>
           </div>
-          <div className="absolute md:left-10 left-1 top-1/2 ">
-            <button className='w-[40px] h-[50px] justify-between items-center rounded-md hover:bg-slate-400/50 bg-slate-200/75 text-center'>
+          <div className={index <= 0 ? "hidden " : "absolute " + " md:left-10 left-1 top-1/2 "}>
+            <button onClick={onBack} className='w-[40px] h-[50px] justify-between items-center rounded-md hover:bg-slate-400/50 bg-slate-200/75 text-center'>
               <Image src="/back.png" width={30} height={30}>
               </Image>
             </button>
           </div>
-          <div className="absolute md:right-10 right-1  top-1/2">
-            <button className='w-[40px] h-[50px] flex justify-between items-center rounded-md hover:bg-slate-400/50 bg-slate-200/75 text-center'>
+          <div className={index >= dataSource.length - 1 ? "hidden " : "absolute " + " md:right-10 right-1 top-1/2"}>
+            <button onClick={onNext} className='w-[40px] h-[50px] flex justify-between items-center rounded-md hover:bg-slate-400/50 bg-slate-200/75 text-center'>
               <Image src="/next.png" width={30} height={30}>
               </Image>
             </button>
@@ -189,9 +224,9 @@ export default function Home() {
 
       </section>
       <footer className="w-full text-white font-bold h-10 flex justify-center items-center">
-        <div className="p-2 rounded-lg bg-slate-600">
+        <div className="p-2 rounded-lg bg-white/10">
           <span>Mode      :</span>
-          <Switch></Switch>
+          <Switch onChange={onChange}></Switch>
         </div>
       </footer>
     </main>
