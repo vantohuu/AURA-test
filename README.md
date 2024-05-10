@@ -46,10 +46,10 @@ B2: Deploy frontend  ( sử dụng giao diện của vercel)
   ![image](https://github.com/vantohuu/AURA-test/assets/82772386/c3dab4df-ebe4-4765-b35b-f74443d5ef70)
 - Nếu project chưa build sẵn thì chờ khoảng 30p nến vercel build và deploy
 
-B3: Kết quả
-- Trang admin
+B3: Kết quả 
+- Trang admin (https://front-aura-test.vercel.app/admin)
   ![image](https://github.com/vantohuu/AURA-test/assets/82772386/7aefa02b-7fe2-4cc0-8a91-f5edc5e2a77f)
-- Trang chủ
+- Trang chủ (https://front-aura-test.vercel.app/)
   ![image](https://github.com/vantohuu/AURA-test/assets/82772386/9976dfd8-e957-4c12-a90c-5ad3eb6394a1)
 
 
