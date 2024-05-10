@@ -10,7 +10,6 @@ const CreateForm = (props) => {
     const openNotificationWithIcon = (type, message) => {
       api[type]({
         message: message,
-    
       });
     };
     const handleCreate = () => {
@@ -37,7 +36,7 @@ const CreateForm = (props) => {
     return (
         
         <Modal
-            visible={visible}
+            open={visible}
             title="Booking a table"
             okText="Ok"
             onCancel={() => {
@@ -105,7 +104,7 @@ export const FormModal = ({ onChange, restaurantId}) => {
     return (
         <div>
             {contextHolder}
-            <button className='w-[180px] my-5 h-[50px] font-bold rounded-full hover:bg-red-700 bg-red-500 text-white text-center'
+            <button className='w-[180px] my-5 h-[50px] font-bold rounded-full hover:bg-red-700 bg-red-500  text-white text-center'
                 onClick={() => {
                     setVisible(true);
                 }}

@@ -1,11 +1,7 @@
 'use client'
-import { Footer, Header } from "antd/es/layout/layout";
-import Head from "next/head";
 import Image from "next/image";
 import React, { useState, useEffect } from 'react';
 import { Input, Switch } from 'antd';
-import NavComponent from "../../components/NavComponent";
-import RestaurantComponent from "../../components/RestaurantComponent";
 import { FormModal } from "../../components/FormModal";
 import axios from 'axios';
 
@@ -131,7 +127,7 @@ export default function Home() {
 
   }
   return (
-    <main className={"flex flex-col items-center justify-between w-full h-full  py-3 " + (mode ? "bg-zinc-900 " : "bg-red-800")}>
+    <main className={"flex flex-col items-center justify-between w-full h-full min-h-screen  py-3 " + (mode ? "bg-zinc-900 " : "bg-red-800")}>
       <header className="w-full text-nowrap" >
         <nav className="flex flex-col items-center lg:p-5 p-3 w-full  font-mono	">
           <div className="flex items-center w-full">
@@ -176,8 +172,7 @@ export default function Home() {
       <section className="flex-1 w-full h-full flex p-3 lg:p-8">
         <div className="w-full h-full  flex-1 grid lg:grid-cols-2 grid-cols-1 bg-white rounded-sm p-5 overflow:auto ">
           <div className="col-span-auto flex flex-col justify-center items-center  ">
-            {/* <RestaurantComponent/> */}
-            <div className='flex flex-col mt-4 justify-center items-center w-full h-full'>
+            <div className='flex flex-col mt-4 justify-center items-center w-full h-full '>
               <div className='flex items-center w-full lg:px-10 md:px-10' >
                 <div className='flex flex-1 items-center'>
                   {listStar(dataSource[index].vote)}
@@ -186,27 +181,23 @@ export default function Home() {
                 </div>
                 <div className='flex items-center' >
                   <button>
-                    <Image onClick={onClickLove} className='m-2' src={love ? "/love_1.png" : "/love_0.png"} height={24} width={24}></Image>
+                    <Image  onClick={onClickLove} className='m-2 animate-jump animate-infinite animate-duration-[2000ms] animate-delay-100' src={love ? "/love_1.png" : "/love_0.png"} height={24} width={24}></Image>
                   </button>
                   <button>
                     <Image className="m-2" src="/share.png" height={24} width={24}></Image>
                   </button>
                 </div>
               </div>
-              <p className='px-10 py-12 text-wrap font-bold text-4xl'>{dataSource[index].name}</p>
+              <p className='px-10 py-12 text-wrap font-bold text-4xl animate-wiggle-more animate-infinite animate-duration-[2000ms] animate-delay-100'>{dataSource[index].name}</p>
               <div className="w-full px-10 text-slate-600">
                 {infoRes()}
               </div>
-
-              {/* <button className='w-[180px] my-5 h-[50px] font-bold rounded-full hover:bg-red-700 bg-red-500 text-white text-center'>
-                BOOK A TABLE
-              </button> */}
-              <FormModal restaurantId={dataSource[index].id}></FormModal>
+              <FormModal className ="w-[180px] my-5 h-[50px] font-bold rounded-full hover:bg-red-700 bg-red-500" restaurantId={dataSource[index].id}></FormModal>
             </div>
 
           </div>
           <div className="col-span-1">
-            <Image width={100} height={200}  loader={() => process.env.NEXT_PUBLIC_BE_HOST+ dataSource[index].img} className="rounded-md w-full" src={process.env.NEXT_PUBLIC_BE_HOST+ dataSource[index].img} ></Image>
+            <Image  width={500} height={500}  loader={() => process.env.NEXT_PUBLIC_BE_HOST+ dataSource[index].img} className="rounded-md w-full " src={process.env.NEXT_PUBLIC_BE_HOST+ dataSource[index].img} ></Image>
           </div>
           <div className={index <= 0 ? "hidden " : "absolute " + " md:left-10 left-1 top-1/2 "}>
             <button onClick={onBack} className='w-[40px] h-[50px] justify-between items-center rounded-md hover:bg-slate-400/50 bg-slate-200/75 text-center'>
