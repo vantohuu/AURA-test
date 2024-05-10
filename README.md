@@ -49,8 +49,9 @@ B2: Deploy frontend  ( sử dụng giao diện của vercel)
 B3: Kết quả 
 - Trang admin (https://front-aura-test.vercel.app/admin)
   ![image](https://github.com/vantohuu/AURA-test/assets/82772386/7aefa02b-7fe2-4cc0-8a91-f5edc5e2a77f)
-- Trang chủ (https://front-aura-test.vercel.app/)
-  ![image](https://github.com/vantohuu/AURA-test/assets/82772386/9976dfd8-e957-4c12-a90c-5ad3eb6394a1)
+- Trang chủ (https://front-aura-test.vercel.app/) gồm 2 chức năng cơ bản, ngoài ra còn có reponsive.
+![image](https://github.com/vantohuu/AURA-test/assets/82772386/167471ac-1bb4-4937-9dc2-35e4e9361a01)
+
 
 
   
