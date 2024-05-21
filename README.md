@@ -1,6 +1,5 @@
 ﻿# AURA-test
 
- Em xin chào anh/chị.
 
  Các bước deploy ứng dụng
  Đầu tiên: Cần có tài khoản github
